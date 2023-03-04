@@ -4,7 +4,7 @@ apiVersion: apps/v1
 kind: Deployment
 #Metadata relating the deployment
 metadata: 
-  name: platform-depl
+  name: platforms-depl
 spec:
   replicas: 1 #Horizontal scalling 
   selector: #Select the template
