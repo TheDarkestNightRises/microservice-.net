@@ -1,0 +1,42 @@
+#Deployment for platform
+#Api version
+apiVersion: apps/v1
+kind: Deployment
+#Metadata relating the deployment
+metadata: 
+  name: commands-depl
+spec:
+  replicas: 1 #Horizontal scalling 
+  selector: #Select the template
+    matchLabels:
+      app: commandservice
+  template: #Template of the pod
+    metadata:
+      labels:
+        app: commandservice
+    spec:
+      containers:
+        - name: commandservice 
+          image: jecksparr0w/commandservice:latest
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: commands-clusterip-srv
+spec:
+  type: ClusterIP
+  selector: 
+    app: commandservice
+  ports:
+  - name: commandservice
+    protocol: TCP
+    port: 80
+    targetPort: 80
+
