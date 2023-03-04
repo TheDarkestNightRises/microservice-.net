@@ -1,0 +1,29 @@
+#Deployment for platform
+#Api version
+apiVersion: apps/v1
+kind: Deployment
+#Metadata relating the deployment
+metadata: 
+  name: platform-depl
+spec:
+  replicas: 1 #Horizontal scalling 
+  selector: #Select the template
+    matchLabels:
+      app: platformservice
+  template: #Template of the pod
+    metadata:
+      labels:
+        app: platformservice
+    spec:
+      containers:
+        - name: platformservice 
+          image: jecksparr0w/platformservice:latest
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+    
+
