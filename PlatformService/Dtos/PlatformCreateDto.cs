@@ -1,12 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-
 namespace PlatformService.Dtos;
-
-public class PlatformReadDto 
+public class PlatformCreateDto 
 {
-    [Required]  
-    public int Id { get; set; }
-    
     [Required]
     public string Name { get; set; }
 
