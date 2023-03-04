@@ -4,20 +4,20 @@ apiVersion: apps/v1
 kind: Deployment
 #Metadata relating the deployment
 metadata: 
-  name: platform-depl
+  name: commands-depl
 spec:
   replicas: 1 #Horizontal scalling 
   selector: #Select the template
     matchLabels:
-      app: platformservice
+      app: commandservice
   template: #Template of the pod
     metadata:
       labels:
-        app: platformservice
+        app: commandservice
     spec:
       containers:
-        - name: platformservice 
-          image: jecksparr0w/platformservice:latest
+        - name: commandservice 
+          image: jecksparr0w/commandservice:latest
           resources:
             requests:
               memory: "64Mi"
@@ -29,13 +29,13 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: platforms-clusterip-srv
+  name: commands-clusterip-srv
 spec:
   type: ClusterIP
   selector: 
-    app: platformservice
+    app: commandservice
   ports:
-  - name: platformservice
+  - name: commandservice
     protocol: TCP
     port: 80
     targetPort: 80
