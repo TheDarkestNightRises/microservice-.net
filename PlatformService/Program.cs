@@ -1,3 +1,4 @@
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using PlatformService.Data;
 using PlatformService.SyncDataServices.Http;
@@ -9,10 +10,13 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Create connection
 builder.Services.AddDbContext<AppDbContext>(opt =>
 {
-    opt.UseInMemoryDatabase("InMem");
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("PlatformsConn"));
 });
+
 builder.Services.AddScoped<IPlatformRepository,PlatformRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpClient<ICommandDataClient,HttpCommandDataClient>();
@@ -30,5 +34,5 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-PrepDb.PrepPopulation(app,false);
+PrepDb.PrepPopulation(app, app.Environment.IsProduction());
 app.Run();
