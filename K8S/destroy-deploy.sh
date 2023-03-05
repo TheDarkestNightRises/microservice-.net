@@ -8,3 +8,4 @@ kubectl delete service platforms-clusterip-srv
 kubectl delete service mssql-clusterip-srv
 kubectl delete service platformnpservice-srv
 kubectl delete service mssql-loadbalancer
+kubectl delete deployment ingress-nginx-controller -n ingress-nginx
