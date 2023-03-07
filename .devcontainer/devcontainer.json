@@ -3,7 +3,7 @@
 {
     "name": "mydevcontainer",
     "build": {
-      "dockerfile": "dockerfile",
+      "dockerfile": "Dockerfile",
       "args": { "KIND_VERSION": "0.14.0" }
     },
     "mounts": ["type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock"],
