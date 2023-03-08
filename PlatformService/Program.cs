@@ -17,9 +17,9 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("PlatformsConn"));
 });
 
-builder.Services.AddScoped<IPlatformRepository,PlatformRepository>();
+builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddHttpClient<ICommandDataClient,HttpCommandDataClient>();
+builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -36,3 +36,4 @@ app.UseAuthorization();
 app.MapControllers();
 PrepDb.PrepPopulation(app, app.Environment.IsProduction());
 app.Run();
+// test workflow
