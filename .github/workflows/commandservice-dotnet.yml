@@ -5,8 +5,12 @@ name: CommandService.NET
 
 on:
   push:
+    paths:
+      - 'CommandsService/**'
     branches: [ "main" ]
   pull_request:
+    paths:
+      - 'CommandsService/**'
     branches: [ "main" ]
 
 jobs:
