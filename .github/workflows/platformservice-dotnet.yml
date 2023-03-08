@@ -5,8 +5,12 @@ name: PlatformService.NET
 
 on:
   push:
+    paths:
+      - 'PlatformService/**'
     branches: [ "main" ]
   pull_request:
+    paths:
+      - 'PlatformService/**'
     branches: [ "main" ]
 
 jobs:
