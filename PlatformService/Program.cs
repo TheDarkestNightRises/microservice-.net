@@ -25,6 +25,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    var context = app.Services.GetRequiredService<AppDbContext>();
+    context.Database.EnsureCreated();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
@@ -36,4 +38,3 @@ app.UseAuthorization();
 app.MapControllers();
 PrepDb.PrepPopulation(app, app.Environment.IsProduction());
 app.Run();
-// test workflow
