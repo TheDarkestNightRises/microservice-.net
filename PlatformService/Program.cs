@@ -1,5 +1,6 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using PlatformService.AsyncDataServices;
 using PlatformService.Data;
 using PlatformService.SyncDataServices.Http;
 
@@ -11,22 +12,29 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Create connection
-builder.Services.AddDbContext<AppDbContext>(opt =>
+
+if (builder.Environment.IsProduction())
 {
-    opt.UseSqlServer(builder.Configuration.GetConnectionString("PlatformsConn"));
-});
+    Console.WriteLine("--> Using SqlServer Db");
+    builder.Services.AddDbContext<AppDbContext>(opt =>
+        opt.UseSqlServer(builder.Configuration.GetConnectionString("PlatformsConn")));
+}
+else
+{
+    Console.WriteLine("--> Using InMem Db");
+    builder.Services.AddDbContext<AppDbContext>(opt =>
+         opt.UseInMemoryDatabase("InMem"));
+}
 
 builder.Services.AddScoped<IPlatformRepository, PlatformRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpClient<ICommandDataClient, HttpCommandDataClient>();
+builder.Services.AddSingleton<IMessageBusClient, MessageBusClient>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    var context = app.Services.GetRequiredService<AppDbContext>();
-    context.Database.EnsureCreated();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
