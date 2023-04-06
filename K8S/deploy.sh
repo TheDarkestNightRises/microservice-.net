@@ -10,4 +10,5 @@ kubectl apply -f ingress-srv.yaml
 #Mssql
 kubectl apply -f local-pvc.yaml
 kubectl apply -f mssql-plat-depl.yaml
+kubectl apply -f rabbitmq-depl.yaml
 # Dont forget to kubectl create secret generic mssql --from-literal=SA_PASSWORD="password" 
